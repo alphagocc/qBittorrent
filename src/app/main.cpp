@@ -142,7 +142,13 @@ int main(int argc, char *argv[])
     if (qgetenv("QT_SCALE_FACTOR_ROUNDING_POLICY").isEmpty())
         Application::setHighDpiScaleFactorRoundingPolicy(Qt::HighDpiScaleFactorRoundingPolicy::PassThrough);
 #endif
-
+    
+#if defined(Q_OS_WIN32) && !defined(DISABLE_GUI)
+	QFont fonts;
+	fonts.setHintingPreference(QFont::PreferNoHinting);
+	Application::setFont(fonts);
+#endif
+    
     try
     {
         // Create Application
